@@ -37,6 +37,10 @@ export default function Example() {
         setTasks(prevTasks => [...prevTasks, newTask]);
     };
 
+    const onDeleteTask = (taskId) => {
+        setTasks(tasks.filter((task) => task.id !== taskId));
+    };
+
     return (
         <>
             {/*
@@ -207,7 +211,7 @@ export default function Example() {
                 <main>
                     <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                         <AddTaskForm onAddTask={onAddTask} />
-                        <Tasks tasks={tasks} />
+                        <Tasks tasks={tasks} onDeleteTask={onDeleteTask} />
                     </div>
                 </main>
             </div>
