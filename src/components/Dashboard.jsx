@@ -2,6 +2,8 @@ import { Fragment, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import AddTaskForm from './Addtask.jsx';
+import Tasks from './Tasks.jsx';
+import Task from './Task.jsx';
 
 const user = {
     name: 'Tom Cook',
@@ -205,6 +207,7 @@ export default function Example() {
                 <main>
                     <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                         <AddTaskForm onAddTask={onAddTask} />
+                        <Tasks tasks={tasks} />
                     </div>
                 </main>
             </div>
