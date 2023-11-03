@@ -1,9 +1,22 @@
-import { Fragment, useState } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import AddTaskForm from './Addtask.jsx';
 import Tasks from './Tasks.jsx';
 import Task from './Task.jsx';
+
+// dwie zmienne do localStorage
+const saveTasksToLocalStorage = (tasks) => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+};
+
+const getTasksFromLocalStorage = () => {
+    const savedTasks = localStorage.getItem('tasks');
+    if (savedTasks) {
+        return JSON.parse(savedTasks);
+    }
+    return [];
+};
 
 const user = {
     name: 'Tom Cook',
@@ -27,7 +40,13 @@ function classNames(...classes) {
 }
 
 export default function Example() {
-    const [tasks, setTasks] = useState([]);
+    // Inicjalizujemy stan zadania z `localStorage`
+    const [tasks, setTasks] = useState(getTasksFromLocalStorage());
+
+    // Aktualizujemy `localStorage` za każdym razem, gdy zadania się zmieniają
+    useEffect(() => {
+        saveTasksToLocalStorage(tasks);
+    }, [tasks]);
 
     const onAddTask = (title) => {
         const newTask = {
